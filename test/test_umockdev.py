@@ -5,8 +5,12 @@ import unittest
 import subprocess
 import sys
 import platform
+import shutil
+
+pytest.importorskip("inkex")
 
 @pytest.mark.skipif(platform.system() != "Linux", reason="only runs on Linux")
+@pytest.mark.skipif(shutil.which("umockdev-run") is None, reason="umockdev-run not installed")
 class TestUmockdev(unittest.TestCase):
 
     def test_run_cameo3(self):
