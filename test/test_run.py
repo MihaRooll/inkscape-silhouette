@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+import pytest
+
+pytest.importorskip("inkex")
+
 import unittest
 import subprocess
 import sys
