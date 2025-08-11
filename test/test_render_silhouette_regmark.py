@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+import pytest
+
+pytest.importorskip("inkex")
+
 from render_silhouette_regmarks import InsertRegmark
 from inkex import BoundingBox
 from inkex.tester import TestCase
