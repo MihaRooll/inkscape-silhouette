@@ -185,12 +185,42 @@ sudo make install   # OR: make install-local  # latter installs only for this us
 
 These steps must be done with Silhouette device plugged in to USB port.
 
+On Windows the easiest way to provide a working libusb backend is to install
+the optional ``libusb-package`` wheel which ships a matching
+``libusb-1.0.dll``.  After installing the Python requirements the helper can
+list connected plotters immediately::
+
+    python -m silhouette.plotter_manager --list
+
+If you prefer using Zadig to install WinUSB drivers manually, follow these
+steps with the Silhouette device plugged in:
+
 * Download newest Zadig from http://zadig.akeo.ie/
 * Go to menu options `List all devices`
 * Look for USB Printing Support in the dropdown list
 * Ensure USB ID is: `0B4D` (Graftek America)
 * Select driver `libusb-win32 (v1.2.6.0)` which will install a `libusb0`-Port for Windows
 * Click replace driver
+
+Once drivers are installed you can cut an SVG directly from the command line.
+The ``--preprocess`` option converts text to paths using Inkscape before
+sending the job to the plotter::
+
+    python -m silhouette.plotter_manager --preprocess "C:\\path\\file.svg" --speed 10 --pressure 3
+
+    If Inkscape is not installed in the default location you may set the
+    ``INKSCAPE_PATH`` environment variable to the executable path.
+
+    A convenience PowerShell wrapper ``cut-svg.ps1`` is included which performs
+    the optional preprocessing step and forwards any additional arguments to
+    the plotter manager.  Example::
+
+        powershell -ExecutionPolicy Bypass -File cut-svg.ps1 .\1.svg --speed 10 --pressure 3
+
+An interactive helper that generates a simple name/number layout and sends it
+to the first detected plotter can be invoked with::
+
+    python -m silhouette.autocut
 
 To later undo:
 

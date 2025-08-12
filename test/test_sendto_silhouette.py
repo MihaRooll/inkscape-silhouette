@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
+import pytest
+
+pytest.importorskip("inkex")
+
 from sendto_silhouette import SendtoSilhouette, __version__
 from inkex import Transform
 from inkex.tester import TestCase
